@@ -165,23 +165,26 @@ int cp_folder(char **args)
 
             if (srcDirent->d_type == DT_DIR)
             {
-                char **temp;
+                char **temp = (char **)malloc(sizeof(char *) * 3);
                 temp[1] = new_folder_source;
                 temp[2] = new_folder_destination;
                 cp_folder(temp);
+                free(temp);
             }
             else
             {
-                char **temp;
+                char **temp = (char **)malloc(sizeof(char *) * 3);
                 temp[1] = new_folder_source;
                 temp[2] = new_folder_destination;
                 cp_file(temp);
+                free(temp);
             }
         }
     }
     closedir(folder_source);
     return 1;
 }
+
 // cp函数的实现
 int CP(char **args)
 {
@@ -203,4 +206,86 @@ int CP(char **args)
         if (cp_file(args) == -1) // 复制文件
             return -1;
     }
+    return 1;
+}
+
+int MV(char **args)
+{
+    CP(args);
+    char **temp = (char **)malloc(sizeof(char *) * 3);
+    temp[1] = "-r";
+    temp[2] = args[1];
+    RM(temp);
+    free(temp);
+    return 1;
+}
+
+int rm_file(char **args)
+{
+    if (args[1] == NULL)
+    {
+        perror("no source file\n");
+    }
+    remove(args[1]);
+    return 1;
+}
+
+int rm_folder(char **args)
+{
+
+    if (args[2] == NULL)
+    {
+        perror("no source folder\n");
+    }
+    DIR *folder_source;
+    char dir_name[128] = {0};
+    struct dirent *dir;
+    struct stat statbuf;
+    stat(args[2], &statbuf);
+    if (S_ISREG(statbuf.st_mode) == 1) // 删除普通文件
+    {
+        remove(args[2]);
+        return 1;
+    }
+    else if (S_ISDIR(statbuf.st_mode) == 1)
+    {
+        folder_source = opendir(args[2]);
+        // printf("%s\n", args[2]);
+        while ((dir = readdir(folder_source)) != NULL)
+        {
+            if ((strcmp(".", dir->d_name) == 0) || (strcmp("..", dir->d_name) == 0))
+            {
+                continue;
+            }
+            sprintf(dir_name, "%s/%s", args[2], dir->d_name);
+            char **temp = (char **)malloc(sizeof(char *) * 3);
+            temp[2] = dir_name;
+            rm_folder(temp);
+            free(temp);
+        }
+        closedir(folder_source);
+    }
+    remove(args[2]);
+    return 1;
+}
+
+int RM(char **args)
+{
+    struct stat file_stat;
+    if ((stat(args[1], &file_stat) == -1) && (stat(args[2], &file_stat) == -1))
+    {
+        perror("Error getting file information");
+        return -1;
+    }
+    if (strcmp(args[1], "-r") == 0)
+    {
+        if (rm_folder(args) == -1)
+            return -1;
+    }
+    else
+    {
+        if (rm_file(args) == -1)
+            return -1;
+    }
+    return 1;
 }

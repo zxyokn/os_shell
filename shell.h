@@ -26,14 +26,16 @@ extern int HELP(char **args);
 extern int EXIT(char **args);
 extern int LS(char **args);
 extern int CP(char **args);
+extern int MV(char **args);
+extern int RM(char **args);
 
-static char supported_function[5][50] =
+static char supported_function[7][50] =
     {
-        "cd", "help", "exit", "ls", "cp"};
+        "cd", "help", "exit", "ls", "cp", "mv", "rm"};
 
 static int (*myfunction[])(char **) = // 函数指针数组
     {
-        &CD, &HELP, &EXIT, &LS, &CP};
+        &CD, &HELP, &EXIT, &LS, &CP, &MV, &RM};
 
 static int num = sizeof(supported_function) / sizeof(supported_function[0]); // 用于计算所支持函数的数量
 
