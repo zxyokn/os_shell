@@ -6,8 +6,8 @@
   - pwd 显示工作目录
   - history 显示历史
   - tree 树状
-- 未完成
   - ps 显示进程信息
+- 未完成
   - 输入输出重定向
   - 管道
   - 后台运行程序 &
@@ -30,4 +30,7 @@
   - 3. 在shell.h中line 41所添加函数的地址，即&函数名字（本shell中均为指令名字的大写，便于区分）
   - 4. 在shell.h中的function_description中添加函数的说明
   - 5. 上述均修改结束后，在shell.h添加```extern int 函数名(char **args)```
-  - 6. 在function文件夹下添加对应cpp文件，在首行添加```#include "shell.h"```
+  - 6. 在function文件夹下添加对应cpp文件，在首行添加```#include "../shell.h"```
+
+- 注意
+  - ps指令是通过遍历/proc文件夹实现的指令，因为macos不支持打开proc文件夹，会导致无法运行，需要linux环境运行该指令
