@@ -55,7 +55,8 @@ static string function_description[11] =
         "输入pwd来获取当前工作目录的路径",
         "输入history来显示shell命令的历史记录",
         "输入tree+指定目录来显示指定目录的树状结构，或仅输入tree来显示当前目录的树状结构",
-        "ps指令的描述"};
+        "输入ps指令显示正在运行的进程的信息",
+};
 
 static int num = sizeof(supported_function) / sizeof(supported_function[0]); // 用于计算所支持函数的数量
 
