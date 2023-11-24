@@ -7,19 +7,20 @@ void handle_redirection(char **args)
     char *input_file = NULL;    // 输入重定向的文件名
     char *output_file = NULL;   // 输出重定向的文件名
 
+    // 检查是否包含输入输出重定向符号
     for (int i = 0; args[i] != NULL; i++)
     {
         if (strcmp(args[i], "<") == 0)
         {
             input_redirection = 1;
-            input_file = args[i + 1];
-            args[i] = NULL;
+            input_file = args[i + 1]; // 获取源文件路径
+            args[i] = NULL;           // 将"<"置为NULL，以便后续执行命令时忽略
         }
         else if (strcmp(args[i], ">") == 0)
         {
             output_redirection = 1;
-            output_file = args[i + 1];
-            args[i] = NULL;
+            output_file = args[i + 1]; // 获取目标路径
+            args[i] = NULL;            // 将">"置为NULL，以便后续执行命令时忽略
         }
     }
 
@@ -31,7 +32,7 @@ void handle_redirection(char **args)
             perror("输入源文件打开失败\n");
             exit(EXIT_FAILURE);
         }
-        if (dup2(inPutFile, STDIN_FILENO) == -1)
+        if (dup2(inPutFile, STDIN_FILENO) == -1) // 将输入源文件描述符复制到标准输入
         {
             perror("输入重定向失败");
             exit(EXIT_FAILURE);
