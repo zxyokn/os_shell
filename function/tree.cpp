@@ -7,7 +7,7 @@ int TREE(char **args)
     if (args[1] == NULL)
     {
         path = getcwd(NULL, 0); // 如果未提供路径，则使用当前工作目录
-        p_tree(".", 1);
+        p_tree((char *)".", 1);
     }
     else
     {

@@ -80,8 +80,8 @@ int cp_folder(char **args)
             bzero(new_folder_source, sizeof(new_folder_source)); // 清空字符串
             bzero(new_folder_destination, sizeof(new_folder_destination));
 
-            sprintf(new_folder_source, "%s/%s", args[1], srcDirent->d_name); // 构建新的源和目标文件夹路径
-            sprintf(new_folder_destination, "%s/%s", args[2], srcDirent->d_name);
+            snprintf(new_folder_source, strlen(args[1]) + strlen(srcDirent->d_name), "%s/%s", args[1], srcDirent->d_name); // 构建新的源和目标文件夹路径
+            snprintf(new_folder_destination, strlen(args[2]) + strlen(srcDirent->d_name), "%s/%s", args[2], srcDirent->d_name);
 
             if (srcDirent->d_type == DT_DIR)
             {

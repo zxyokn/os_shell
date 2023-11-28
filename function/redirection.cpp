@@ -23,7 +23,6 @@ void handle_redirection(char **args)
             args[i] = NULL;            // 将">"置为NULL，以便后续执行命令时忽略
         }
     }
-
     if (input_redirection)
     {
         int inPutFile = open(input_file, O_RDONLY);

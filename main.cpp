@@ -14,6 +14,9 @@ int main()
             continue;
         buffer[strlen(buffer) - 1] = 0; // 去掉回车换行
         args = parse(buffer);           // 对指令进行分词
-        status = function_find(args);   // 依据分词结果寻找函数,输出结果
+        // for (int i = 0; args[i] != NULL; i++)
+        //     cout << args[i] << " ";
+        // cout << endl;
+        status = function_find(args); // 依据分词结果寻找函数,输出结果
     }
 }

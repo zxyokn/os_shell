@@ -6,7 +6,7 @@ void my_shell_promt()
 {
     char path[500];
     getcwd(path, 500); // 获取当前路径
-    char command_promt[200] = "[myshell ";
+    char command_promt[200] = "[myshell: ";
     strcat(command_promt, path);
     strcat(command_promt, "]$");
     printf("%s", command_promt); // 输出提示符
@@ -15,7 +15,7 @@ void my_shell_promt()
 // 对所获取的指令进行分词
 char **parse(char *buffer)
 {
-    sprintf(history[history_index], "%s", buffer);
+    snprintf(history[history_index], strlen(buffer), "%s", buffer);
     history_index++;
     int size = tok_bufsize;
     char *token;

@@ -34,6 +34,8 @@ extern int HISTORY(char **args);
 extern int TREE(char **args);
 extern int PS(char **args);
 extern void handle_redirection(char **args);
+extern void handle_pipe(char **args);
+extern bool is_pipe(char **args); // 判断是否为管道命令
 
 static char supported_function[11][50] =
     {

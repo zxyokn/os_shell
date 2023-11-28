@@ -25,7 +25,7 @@ int PS(char **args)
             continue;
 
         // snprintf(path, sizeof(path), "/proc/%s/task/%s/status", dirent->d_name, dirent->d_name);
-        sprintf(path, "/proc/%s/task/%s/status", dirent->d_name, dirent->d_name); // 构建进程状态文件路径
+        snprintf(path, strlen(dirent->d_name) + strlen(dirent->d_name), "/proc/%s/task/%s/status", dirent->d_name, dirent->d_name); // 构建进程状态文件路径
 
         if ((file = fopen(path, "r")) == NULL)
         {
