@@ -7,7 +7,7 @@ int RM(char **args)
     struct stat file_stat;                                                      // 用于存储文件信息的结构体
     if ((stat(args[1], &file_stat) == -1) && (stat(args[2], &file_stat) == -1)) // 检查源文件和源文件夹是否都不存在
     {
-        perror("Error getting file information");
+        perror("无法获取文件信息\n");
         return -1;
     }
     if (strcmp(args[1], "-r") == 0) // 检查第一个参数是否为 "-r"，表示递归删除
@@ -27,7 +27,7 @@ int rm_file(char **args)
 {
     if (args[1] == NULL)
     {
-        perror("no source file\n");
+        perror("无法打开源文件\n");
     }
     remove(args[1]);
     return 1;
@@ -38,7 +38,7 @@ int rm_folder(char **args)
 
     if (args[2] == NULL)
     {
-        perror("no source folder\n");
+        perror("无法打开源文件\n");
     }
     DIR *folder_source; // 文件夹相关变量
     char dir_name[128] = {0};

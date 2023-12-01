@@ -4,18 +4,16 @@ int p_tree(char *path, int level);
 int TREE(char **args)
 {
     const char *path;
-    // if (args[1] == NULL)
-    // {
-    // path = getcwd(NULL, 0); // 如果未提供路径，则使用当前工作目录
-    // p_tree((char *)".", 1);
-    // }
-    // else
-    // {
-
-    path = args[1];
-    // cout << path << endl;
-    p_tree(args[1], 1);
-    //}
+    if (args[1] == NULL)
+    {
+        path = getcwd(NULL, 0); // 如果未提供路径，则使用当前工作目录
+        p_tree((char *)".", 1);
+    }
+    else
+    {
+        path = getcwd(NULL, 0);
+        p_tree(args[1], 1);
+    }
     chdir(path); // 切换当前工作目录为最终目录
     return 1;    // 理论上是不需要在主函数中存入path，但是在p_tree中变换目录老是出问题，暂如此解决
 }

@@ -39,7 +39,7 @@ void handle_redirection(char **args)
         }
         if (dup2(inPutFile, STDIN_FILENO) == -1) // 将输入源文件描述符复制到标准输入
         {
-            perror("输入重定向失败");
+            perror("输入重定向失败\n");
             exit(EXIT_FAILURE);
         }
         close(inPutFile);

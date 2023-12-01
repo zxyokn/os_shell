@@ -6,28 +6,23 @@ int handle_background(char **args)
     {
         if (strcmp(args[i], "&") == 0)
         {
-            args[i] = NULL;
+            args[i] = NULL; // 将&位置置空
             break;
         }
     }
     for (int i = 1; args[i] != NULL; i++)
     {
         strcat(args[0], " ");
-        strcat(args[0], args[i]);
+        strcat(args[0], args[i]); // 将命令和参数合并
     }
-    for (int i = 0; args[i] != NULL; i++)
-    {
-        cout << args[i] << " ";
-    }
-    cout << endl;
     pid_t pid = fork();
-    if (pid == 0)
+    if (pid == 0) // 需要说明的是，此处输出的进程提示会和promt中的提示输出错位，但是不影响使用，可能需要改进
     {
         printf("\n");
         printf("child pid:%d working...\n", getpid());
         sleep(10);
         system((const char *)args[0]); // 执行命令
-        printf("\n");                  //?????????????
+        printf("\n");                  //?????????????  输出换行很迷
         printf("child pid:%d done\n", getpid());
         exit(1);
     }

@@ -8,7 +8,7 @@ int CP(char **args)
     struct stat file_stat;               // 用于判断是否为文件or文件夹
     if (stat(args[1], &file_stat) == -1) // 初始化结构体
     {
-        perror("Error getting file information");
+        perror("无法获取文件信息\n");
         return -1;
     }
 
@@ -35,12 +35,14 @@ int cp_file(char **args)
     file_source = fopen(args[1], "r"); // 初始化所需复制的文件
     if (file_source == NULL)           // 检查源文件与目的地址的存在性
     {
-        perror("no source file\n");
+        perror("打开源文件失败\n");
+        return -1;
     }
     file_destination = fopen(args[2], "w"); // 初始化复制地址
     if (file_destination == NULL)
     {
-        perror("no destination\n");
+        perror("未输入复制地址\n");
+        return -1;
     }
     int ch = EOF;
     while ((ch = fgetc(file_source)) != EOF)
@@ -63,7 +65,8 @@ int cp_folder(char **args)
     DIR *folder_source = opendir(args[1]); // 初始化所需复制的文件夹
     if (folder_source == NULL)
     {
-        perror("no source folder\n");
+        perror("无法打开源文件夹\n");
+        return -1;
     }
 
     char new_folder_source[4096];      // 新的源文件夹路径

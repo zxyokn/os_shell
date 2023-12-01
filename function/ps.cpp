@@ -12,7 +12,7 @@ int PS(char **args)
 
     if ((dir = opendir("/proc")) == NULL)
     {
-        perror("无法打开proc目录");
+        perror("无法打开proc目录\n");
         return -1;
     }
 
