@@ -8,17 +8,18 @@
   - tree 树状
   - ps 显示进程信息
   - 输入输出重定向
-- 未完成
   - 管道
   - 后台运行程序 &
 - 待完善
   - ls 功能的补充 如ls -l
-  - help 支持函数的个数
+  - ~~help 支持函数的个数~~
   - rm 文件夹代码完善
   - 代码健壮性
   - 颜色
   - tree 好像文件夹后面多一个换行？  路径问题
-  - 在help中添加重定向的说明
+  - ~~在help中添加重定向、管道、&的说明~~
+  - & 输出顺序存在问题
+  - 测试样例
 
 
 - 编译命令
@@ -26,7 +27,7 @@
   - ```g++ main.cpp -I ./function function/*.cpp```
   - ```./a.out```
 - 如何添加函数
-  - 1. 在shell.h文件中修改line 35 ```static char supported_function[10][50] =```中的第一个数字，该数字代表所支持函数的总数
+  - 1. ~~在shell.h文件中修改line 35 ```static char supported_function[10][50] =```中的第一个数字，该数字代表所支持函数的总数~~  现在不需要了
   - 2. 在supported_function中添加"指令名字"
   - 3. 在shell.h中line 41所添加函数的地址，即&函数名字（本shell中均为指令名字的大写，便于区分）
   - 4. 在shell.h中的function_description中添加函数的说明

@@ -6,6 +6,11 @@ int function_find(char **args)
     int status = -1;
     if (args == NULL)
         return status; // 未传入参数
+    else if (is_background(args))
+    {
+        handle_background(args);
+        return 1;
+    }
     else if (is_pipe(args))
     {
         handle_pipe(args);

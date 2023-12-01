@@ -36,16 +36,19 @@ extern int PS(char **args);
 extern void handle_redirection(char **args);
 extern void handle_pipe(char **args);
 extern bool is_pipe(char **args); // 判断是否为管道命令
-
-static char supported_function[11][50] =
+extern bool is_background(char **args);
+extern int handle_background(char **args);
+extern int UPPER(char **args);
+extern int CLEAR(char **args);
+static char supported_function[][50] =
     {
-        "cd", "help", "exit", "ls", "cp", "mv", "rm", "pwd", "history", "tree", "ps"};
+        "cd", "help", "exit", "ls", "cp", "mv", "rm", "pwd", "history", "tree", "ps", "up", "clear"};
 
 static int (*myfunction[])(char **) = // 函数指针数组
     {
-        &CD, &HELP, &EXIT, &LS, &CP, &MV, &RM, &PWD, &HISTORY, &TREE, &PS};
+        &CD, &HELP, &EXIT, &LS, &CP, &MV, &RM, &PWD, &HISTORY, &TREE, &PS, &UPPER, &CLEAR};
 
-static string function_description[11] =
+static string function_description[] =
     {
         "输入cd+指定地址来跳转目录",
         "输入help来查看本shell所支持的指令及其用法",
@@ -58,8 +61,10 @@ static string function_description[11] =
         "输入history来显示shell命令的历史记录",
         "输入tree+指定目录来显示指定目录的树状结构，或仅输入tree来显示当前目录的树状结构",
         "输入ps指令显示正在运行的进程的信息",
-};
+        "输入up指令用于将小写字母转换为大写字母，此命令用于管道功能的测试"
+        "输入clear指令清空屏幕"};
 
 static int num = sizeof(supported_function) / sizeof(supported_function[0]); // 用于计算所支持函数的数量
 
+extern char *file_buffer;
 #endif

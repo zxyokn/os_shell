@@ -1,5 +1,6 @@
 #include "../shell.h"
 
+char *file_buffer = (char *)malloc(4096);
 void handle_redirection(char **args)
 {
     int input_redirection = 0;  // 标记是否有输入重定向
@@ -14,7 +15,12 @@ void handle_redirection(char **args)
         {
             input_redirection = 1;
             input_file = args[i + 1]; // 获取源文件路径
-            args[i] = NULL;           // 将"<"置为NULL，以便后续执行命令时忽略
+            FILE *src_r = fopen((const char *)input_file, "r");
+            fread(file_buffer, 4096, 1, src_r);
+            file_buffer[strlen(file_buffer) - 1] = 0;
+            args[i] = file_buffer; // 将"<"置为NULL，以便后续执行命令时忽略
+            args[i + 1] = NULL;
+            return;
         }
         else if (strcmp(args[i], ">") == 0)
         {
