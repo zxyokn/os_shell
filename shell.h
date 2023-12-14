@@ -40,13 +40,14 @@ extern bool is_background(char **args);
 extern int handle_background(char **args);
 extern int UPPER(char **args);
 extern int CLEAR(char **args);
+extern int SYSTEM(char **args);
 static char supported_function[][50] =
     {
-        "cd", "help", "exit", "ls", "cp", "mv", "rm", "pwd", "history", "tree", "ps", "up", "clear"};
+        "cd", "help", "exit", "ls", "cp", "mv", "rm", "pwd", "history", "tree", "ps", "up", "clear", "system"};
 
 static int (*myfunction[])(char **) = // 函数指针数组
     {
-        &CD, &HELP, &EXIT, &LS, &CP, &MV, &RM, &PWD, &HISTORY, &TREE, &PS, &UPPER, &CLEAR};
+        &CD, &HELP, &EXIT, &LS, &CP, &MV, &RM, &PWD, &HISTORY, &TREE, &PS, &UPPER, &CLEAR, &SYSTEM};
 
 static string function_description[] =
     {
@@ -61,8 +62,9 @@ static string function_description[] =
         "输入history来显示shell命令的历史记录",
         "输入tree+指定目录来显示指定目录的树状结构，或仅输入tree来显示当前目录的树状结构",
         "输入ps指令显示正在运行的进程的信息",
-        "输入up指令用于将小写字母转换为大写字母，此命令用于管道功能的测试"
-        "输入clear指令清空屏幕"};
+        "输入up指令用于将小写字母转换为大写字母，此命令用于管道功能的测试",
+        "输入clear指令清空屏幕",
+        "输入system指令调用系统指令"};
 
 static int num = sizeof(supported_function) / sizeof(supported_function[0]); // 用于计算所支持函数的数量
 

@@ -18,6 +18,7 @@ void handle_pipe(char **args)
             args[i] = NULL; // 分割命令
             // args2 = args + i + 1;
             memcpy(args2[0], args[i + 1], strlen(args[i + 1]));
+            args2[1] = NULL;
             break;
         }
     }
@@ -28,7 +29,7 @@ void handle_pipe(char **args)
     {
         if (args1[i + 1] == NULL)
         {
-            cout << i << endl;
+            // cout << i << endl;
             args1[i + 1] = (char *)">";
             args1[i + 2] = (char *)"temp.txt";
             break;
@@ -38,7 +39,7 @@ void handle_pipe(char **args)
     for (int i = 0; args2[i] != NULL; i++)
     {
 
-        cout << args2[i] << endl;
+        // cout << i << endl;
         if (args2[i + 1] == NULL)
         {
             args2[i + 1] = (char *)"<";
@@ -47,7 +48,7 @@ void handle_pipe(char **args)
             break;
         }
     }
-    cout << args1[0] << " " << args1[1] << " " << args1[2] << endl;
+    cout << args1[0] << " " << args1[1] << " " << args1[2] << " " << args1[3] << endl;
     cout << args2[0] << " " << args2[1] << " " << args2[2] << endl;
     // for (int i = 0; args2[i] != NULL; i++)
     //     cout << i << " " << args2[i] << " ";

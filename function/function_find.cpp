@@ -25,6 +25,7 @@ int function_find(char **args)
         {
             if (strcmp(args[0], supported_function[i]) == 0)
             {
+
                 int status = (*myfunction[i])(args); // 依据分词结果的第一部分寻找对应函数，利用函数库找到对应函数的地址
                 dup2(original_stdin, STDIN_FILENO);
                 dup2(original_stdout, STDOUT_FILENO); // 恢复标准输入输出文件描述符
