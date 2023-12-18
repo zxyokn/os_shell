@@ -21,11 +21,10 @@ int PS(char **args)
         if (dirent->d_name[0] == '.') // 忽略以点开头的目录项
             continue;
 
-        if (dirent->d_name[0] <= '0' || dirent->d_name[0] >= '9') // 忽略非数字开头的目录项（是否有=？）
+        if (dirent->d_name[0] < '0' || dirent->d_name[0] > '9') // 忽略非数字开头的目录项
             continue;
 
-        // snprintf(path, sizeof(path), "/proc/%s/task/%s/status", dirent->d_name, dirent->d_name);
-        snprintf(path, strlen(dirent->d_name) + strlen(dirent->d_name), "/proc/%s/task/%s/status", dirent->d_name, dirent->d_name); // 构建进程状态文件路径
+        snprintf(path, sizeof(path) * 2, "/proc/%s/status", dirent->d_name); // 构建进程状态文件路径
 
         if ((file = fopen(path, "r")) == NULL)
         {
@@ -46,7 +45,8 @@ int PS(char **args)
 
             if (strncmp(buf, "Pid", 3) == 0)
             {
-                pid = strdup(buf + 5); // 使用 strdup 分配内存并复制 PID
+                pid = strdup(buf + 5);          // 使用 strdup 分配内存并复制 PID
+                pid[strcspn(pid, "\n")] = '\0'; // 移除可能的换行符
                 break;
             }
         }
@@ -54,7 +54,7 @@ int PS(char **args)
         if (name != NULL && pid != NULL)
         {
             // 输出名称和 PID
-            printf("%-20s%s", name, pid);
+            printf("%-20s%s\n", name, pid);
             free(name); // 释放分配的内存
             free(pid);
         }

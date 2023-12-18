@@ -22,8 +22,9 @@ int handle_background(char **args)
         printf("child pid:%d working...\n", getpid());
         sleep(10);
         system((const char *)args[0]); // 执行命令
-        printf("\n");                  //?????????????  输出换行很迷
+        // printf("\n");                  //?????????????  输出换行很迷
         printf("child pid:%d done\n", getpid());
+        my_shell_promt();
         exit(1);
     }
     return 1;

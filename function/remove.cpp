@@ -60,7 +60,7 @@ int rm_folder(char **args)
             {
                 continue;
             }
-            snprintf(dir_name, strlen(args[2]) + strlen(dir->d_name), "%s/%s", args[2], dir->d_name); // 构造子文件/文件夹的路径
+            snprintf(dir_name, (strlen(args[2]) + strlen(dir->d_name)) * 2, "%s/%s", args[2], dir->d_name); // 构造子文件/文件夹的路径
             char **temp = (char **)malloc(sizeof(char *) * 3);
             temp[2] = dir_name;
             rm_folder(temp);

@@ -16,13 +16,11 @@ void handle_pipe(char **args)
         if (strcmp(args[i], "|") == 0)
         {
             args[i] = NULL; // 分割命令
-            // args2 = args + i + 1;
             memcpy(args2[0], args[i + 1], strlen(args[i + 1]));
             args2[1] = NULL;
             break;
         }
     }
-    pid_t child_pid;
     // cout << args1[0] << " " << args2[0] << endl;
 
     for (int i = 0; args1[i] != NULL; i++)
@@ -48,11 +46,14 @@ void handle_pipe(char **args)
             break;
         }
     }
-    cout << args1[0] << " " << args1[1] << " " << args1[2] << " " << args1[3] << endl;
-    cout << args2[0] << " " << args2[1] << " " << args2[2] << endl;
-    // for (int i = 0; args2[i] != NULL; i++)
-    //     cout << i << " " << args2[i] << " ";
-    // cout << endl;
+    // cout << args1[0] << " " << args1[1] << " " << args1[2];
+    // if (args1[3] != NULL)
+    //     cout << " " << args1[3] << endl;
+    // else
+    //     cout << endl;
+    // cout << args2[0] << " " << args2[1] << " " << args2[2] << endl;
+
+    pid_t child_pid;
     child_pid = fork(); // 创建子进程
 
     if (child_pid == -1)
@@ -95,7 +96,7 @@ void handle_pipe(char **args)
             }
         }
     }
-    // remove("temp.txt");
+    remove("temp.txt");
 }
 
 bool is_pipe(char **args) // 判断是否为管道命令

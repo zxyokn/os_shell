@@ -62,7 +62,10 @@ int p_tree(char *path, int level)
         // 恢复默认颜色
         printf("\033[0m");
         // 换行
-        printf("\n");
+        if (!S_ISDIR(file_stat.st_mode))
+        {
+            printf("\n");
+        }
         // while (depth--)
         // {
         //     printf("|_");

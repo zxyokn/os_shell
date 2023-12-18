@@ -15,7 +15,7 @@ void my_shell_promt()
 // 对所获取的指令进行分词
 char **parse(char *buffer)
 {
-    snprintf(history[history_index], strlen(buffer), "%s", buffer);
+    snprintf(history[history_index], 2 * (strlen(buffer)), "%s", buffer);
     history_index++;
     int size = tok_bufsize;
     char *token;

@@ -38,6 +38,14 @@ int cp_file(char **args)
         perror("打开源文件失败\n");
         return -1;
     }
+    // 检查目标文件是否存在
+    struct stat dest_stat;
+    if (stat(args[2], &dest_stat) != -1)
+    {
+        fprintf(stderr, "cp: 目标文件已存在\n");
+        fclose(file_source);
+        return -1;
+    }
     file_destination = fopen(args[2], "w"); // 初始化复制地址
     if (file_destination == NULL)
     {
@@ -83,9 +91,8 @@ int cp_folder(char **args)
             bzero(new_folder_source, sizeof(new_folder_source)); // 清空字符串
             bzero(new_folder_destination, sizeof(new_folder_destination));
 
-            snprintf(new_folder_source, strlen(args[1]) + strlen(srcDirent->d_name), "%s/%s", args[1], srcDirent->d_name); // 构建新的源和目标文件夹路径
-            snprintf(new_folder_destination, strlen(args[2]) + strlen(srcDirent->d_name), "%s/%s", args[2], srcDirent->d_name);
-
+            snprintf(new_folder_source, (strlen(args[1]) + strlen(srcDirent->d_name)) * 2, "%s/%s", args[1], srcDirent->d_name); // 构建新的源和目标文件夹路径
+            snprintf(new_folder_destination, (strlen(args[2]) + strlen(srcDirent->d_name)) * 2, "%s/%s", args[2], srcDirent->d_name);
             if (srcDirent->d_type == DT_DIR)
             {
                 char **temp = (char **)malloc(sizeof(char *) * 3);
