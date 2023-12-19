@@ -37,14 +37,14 @@ int p_tree(char *path, int level)
         // 打印缩进，表示目录层级
         int depth = level;
         // 设置颜色和修饰符
-        if (S_ISDIR(file_stat.st_mode))
-        {
-            printf("\033[1;34m"); // 使用蓝色表示目录
-        }
-        else
-        {
-            printf("\033[0m"); // 恢复默认颜色
-        }
+        // if (S_ISDIR(file_stat.st_mode))
+        // {
+        //     printf("\033[1;34m"); // 使用蓝色表示目录
+        // }
+        // else
+        // {
+        //     printf("\033[0m"); // 恢复默认颜色
+        // }
 
         // 打印缩进
         while (depth--)
@@ -60,24 +60,12 @@ int p_tree(char *path, int level)
             p_tree(dir->d_name, level + 1);
         }
         // 恢复默认颜色
-        printf("\033[0m");
+        // printf("\033[0m");
         // 换行
         if (!S_ISDIR(file_stat.st_mode))
         {
             printf("\n");
         }
-        // while (depth--)
-        // {
-        //     printf("|_");
-        // }
-        // printf("%s\n", dir->d_name);
-        // depth = level;
-        // // 如果是目录，则递归调用 p_tree 函数
-        // if (S_ISDIR(file_stat.st_mode))
-        // {
-        //     p_tree(dir->d_name, depth + 2);
-        //     printf("|\n"); // 打印目录之间的分隔线
-        //    }
     }
     chdir("..");
     closedir(source);
